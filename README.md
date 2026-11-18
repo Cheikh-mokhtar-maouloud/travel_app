@@ -10,6 +10,32 @@
 
 الخادم (`server/`) يشغّل اللوحتين وواجهة التطبيق معاً.
 
+## لقطات الشاشة
+
+### تطبيق الزبون
+
+| تسجيل الدخول | الرئيسية (FR) | الرئيسية (AR) |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/mobile-login.png" width="220"> | <img src="docs/screenshots/mobile-home.png" width="220"> | <img src="docs/screenshots/mobile-home-ar.png" width="220"> |
+| **العمرة والحج** | **حجوزاتي** | **حسابي** |
+| <img src="docs/screenshots/mobile-packages.png" width="220"> | <img src="docs/screenshots/mobile-bookings.png" width="220"> | <img src="docs/screenshots/mobile-account.png" width="220"> |
+
+### لوحة الوكالة (`/admin`)
+
+| الرئيسية | الحجوزات |
+|:---:|:---:|
+| <img src="docs/screenshots/admin-home.png" width="420"> | <img src="docs/screenshots/admin-bookings.png" width="420"> |
+| **الرحلات والأسعار** | **العمرة والحج** |
+| <img src="docs/screenshots/admin-flights.png" width="420"> | <img src="docs/screenshots/admin-packages.png" width="420"> |
+
+### لوحة المالك (`/owner`)
+
+| الملخص | العمولة لكل حجز |
+|:---:|:---:|
+| <img src="docs/screenshots/owner-summary.png" width="420"> | <img src="docs/screenshots/owner-bookings.png" width="420"> |
+
+> البيانات الظاهرة في اللقطات تجريبية.
+
 ---
 
 ## 1) المتطلبات (مرة واحدة)
