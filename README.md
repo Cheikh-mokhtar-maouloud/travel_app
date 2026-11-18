@@ -1,220 +1,224 @@
-# تطبيق حجز التذاكر للوكالة ✈ — الإصدار 3
+# Travel Agency Booking App ✈ — Version 3
 
-المشروع ثلاثة أجزاء:
+The project has three parts:
 
-| الجزء | الرابط | لمن؟ |
+| Part | URL | For whom? |
 |---|---|---|
-| **تطبيق الزبون** (`mobile/`) | Expo Go على الهاتف | الزبائن — بالعربية والفرنسية والإنجليزية |
-| **لوحة الوكالة** | `http://localhost:4000/admin` | موظفو الوكالة |
-| **لوحة المالك** | `http://localhost:4000/owner` | **أنت وحدك** — أرباحك وعمولتك |
+| **Customer app** (`mobile/`) | Expo Go on the phone | Customers — in Arabic, French and English |
+| **Agency dashboard** | `http://localhost:4000/admin` | Agency staff |
+| **Owner dashboard** | `http://localhost:4000/owner` | **You only** — your earnings and commission |
 
-الخادم (`server/`) يشغّل اللوحتين وواجهة التطبيق معاً.
+The server (`server/`) runs both dashboards and the app API.
 
-## لقطات الشاشة
+## Screenshots
 
-### تطبيق الزبون
+### Customer app
 
-| تسجيل الدخول | الرئيسية (FR) | الرئيسية (AR) |
+| Sign in | Home (FR) | Home (AR) |
 |:---:|:---:|:---:|
 | <img src="docs/screenshots/mobile-login.png" width="220"> | <img src="docs/screenshots/mobile-home.png" width="220"> | <img src="docs/screenshots/mobile-home-ar.png" width="220"> |
-| **العمرة والحج** | **حجوزاتي** | **حسابي** |
+| **Umrah & Hajj** | **My bookings** | **My account** |
 | <img src="docs/screenshots/mobile-packages.png" width="220"> | <img src="docs/screenshots/mobile-bookings.png" width="220"> | <img src="docs/screenshots/mobile-account.png" width="220"> |
 
-### لوحة الوكالة (`/admin`)
+### Agency dashboard (`/admin`)
 
-| الرئيسية | الحجوزات |
+| Home | Bookings |
 |:---:|:---:|
 | <img src="docs/screenshots/admin-home.png" width="420"> | <img src="docs/screenshots/admin-bookings.png" width="420"> |
-| **الرحلات والأسعار** | **العمرة والحج** |
+| **Flights & fares** | **Umrah & Hajj** |
 | <img src="docs/screenshots/admin-flights.png" width="420"> | <img src="docs/screenshots/admin-packages.png" width="420"> |
 
-### لوحة المالك (`/owner`)
+### Owner dashboard (`/owner`)
 
-| الملخص | العمولة لكل حجز |
+| Summary | Commission per booking |
 |:---:|:---:|
 | <img src="docs/screenshots/owner-summary.png" width="420"> | <img src="docs/screenshots/owner-bookings.png" width="420"> |
 
-> البيانات الظاهرة في اللقطات تجريبية.
+> The data shown in the screenshots is demo data. The dashboards' interface is in Arabic.
 
 ---
 
-## 1) المتطلبات (مرة واحدة)
+## 1) Requirements (one time)
 
-1. **Node.js** إصدار 20 أو أحدث: https://nodejs.org
+1. **Node.js** 20 or later: https://nodejs.org
 2. **VS Code**: https://code.visualstudio.com
-3. تطبيق **Expo Go** على هاتفك (Google Play / App Store)
-4. الهاتف والكمبيوتر على **نفس شبكة الواي فاي**
+3. The **Expo Go** app on your phone (Google Play / App Store)
+4. Phone and computer on the **same Wi-Fi network**
 
-## 2) التشغيل من VS Code
+## 2) Running from VS Code
 
-افتح مجلد `travel-app` ثم Terminal ← New Terminal.
+Open the project folder, then Terminal → New Terminal.
 
-**الطرفية الأولى — الخادم:**
+**Terminal 1 — the server:**
 ```bash
 cd server
 npm install
 npm start
 ```
 
-**الطرفية الثانية — التطبيق** (زر + لفتح طرفية جديدة):
+**Terminal 2 — the app** (use + to open a new terminal):
 ```bash
 cd mobile
 npm install
 npx expo start
 ```
-امسح رمز QR بتطبيق Expo Go (أندرويد) أو بالكاميرا (آيفون). للتجربة في المتصفح اضغط **w**.
+Scan the QR code with Expo Go (Android) or with the camera (iPhone). To try it in the browser, press **w**.
 
-> إن كنت تحدّث من الإصدار الأول: انسخ مجلد `server/data` القديم إلى المشروع الجديد قبل التشغيل؛ تُرقّى البيانات تلقائياً دون أن يضيع شيء.
+> Upgrading from version 1: copy the old `server/data` folder into the new project before starting; the data is migrated automatically without losing anything.
 
-### الدخول لأول مرة
+### First sign-in
 
-| اللوحة | اسم المستخدم | كلمة المرور |
+| Dashboard | Username | Password |
 |---|---|---|
-| الوكالة | `admin` | `admin123` ← **غيّرها فوراً** |
-| المالك (أنت) | `owner` | تُولَّد عشوائياً عند أول تشغيل وتُكتب في الملف **`server/data/OWNER-PASSWORD.txt`** |
+| Agency | `admin` | `admin123` → **change it immediately** |
+| Owner (you) | `owner` | Generated randomly on first start and written to **`server/data/OWNER-PASSWORD.txt`** |
 
-بعد دخولك للوحة المالك: غيّر كلمة المرور، **فعّل التحقق الثنائي** (Google Authenticator)، ثم احذف ملف `OWNER-PASSWORD.txt`.
+After signing in to the owner dashboard: change the password, **enable two-factor authentication** (Google Authenticator), then delete `OWNER-PASSWORD.txt`.
 
-### إذا ظهرت "تعذّر الاتصال بالخادم" في الهاتف
-1. تأكد أن الخادم يعمل وأن الجهازين على نفس الواي فاي.
-2. ويندوز: اسمح لـ Node.js في جدار الحماية (Allow access).
-3. اكتب عنوان كمبيوترك يدوياً في `mobile/src/config.js`: `const MANUAL_API_URL = 'http://192.168.1.10:4000';`
-
----
-
-## 3) عمولتك 5% ولوحة المالك
-
-**كيف تُحسب:**
-- العمولة = **5% من السعر المعروض للزبون** على كل حجز يتم عبر التطبيق (رحلات، Amadeus، عروض الأسعار، العمرة والحج).
-- السعر المعروض = بعد خصم الطالب، و**قبل** خصم النقاط (خصم النقاط تتحمله الوكالة ولا يُنقص عمولتك).
-- تصبح العمولة **مستحقة** عند إصدار التذكرة، و**تُلغى** تلقائياً إذا أُلغي الحجز أو استُرجع المبلغ.
-- عند تغيير النسبة تُطبَّق على الحجوزات الجديدة فقط.
-
-**في لوحتك (`/owner`):**
-- المستحق لك الآن، وربح الشهر، والإجمالي منذ البداية، والأرباح حسب الشهر.
-- العمولة لكل حجز، مع تصفية حسب التاريخ وتصدير CSV (يفتح في Excel).
-- **الدفعات المستلمة:** سجّل كل مبلغ تستلمه من الوكالة، فيُخصم من المستحق.
-- **سجل العمليات:** كل تغيير مهم (حالات الحجوزات، الأسعار، الإعدادات، توثيق الطلاب…) باسم من قام به ووقته.
-- **تنبيه:** الحجوزات التي تُلغى أو تُسترجع **بعد الدفع** تظهر لك مميّزة لتراجعها. الوكالة مُلزمة بكتابة السبب، ولا تستطيع حذف أي حجز.
-
-**في لوحة الوكالة ← "مستحقات المنصة":** يرى موظفو الوكالة نفس الأرقام (عمولتك على كل حجز، المستحق، ما سُدّد) **للاطلاع فقط**، ولا يستطيعون تعديلها ولا الدخول إلى لوحتك.
-
-### كيف تدفع لك الوكالة مستحقاتك
-1. **أنت:** لوحة المالك ← الإعدادات والأمان ← **حساباتك لاستلام المستحقات** (Bankily / Masrvi / Sedad / حساب بنكي: الرقم واسم صاحبه).
-2. **الوكالة:** لوحتها ← **مستحقات المنصة** ← ترى المبلغ المستحق وحساباتك، تحوّل المبلغ، ثم تملأ نموذج **"ادفع مستحقات المنصة"**: الحساب الذي حوّلت إليه، المبلغ، رقم العملية، صورة الإيصال.
-3. **أنت:** يظهر لك تنبيه في لوحتك ← **الدفعات المستلمة** ← تفتح الإيصال وتتحقق من حسابك ← **تأكيد الاستلام** (ويمكنك تصحيح المبلغ إن وصل مبلغ مختلف) أو **لم يصل** مع السبب.
-4. عند التأكيد يُخصم المبلغ من المستحق فوراً، ويظهر للطرفين. عند الرفض ترى الوكالة السبب وتعيد الإرسال.
-
-الدفعة لا تُنقص المستحق إلا بعد تأكيدك. ويمكنك أيضاً تسجيل دفعة نقدية يدوياً.
-
-> مهم: لحماية أرباحك، يجب أن يكون **الخادم وقاعدة البيانات تحت سيطرتك أنت** (على استضافة باسمك)، لا عند الوكالة.
+### If the phone shows "Cannot reach the server"
+1. Make sure the server is running and both devices are on the same Wi-Fi.
+2. Windows: allow Node.js through the firewall (Allow access).
+3. Set your computer's address manually in `mobile/src/config.js`: `const MANUAL_API_URL = 'http://192.168.1.10:4000';`
+   - Alternatively, start Expo with `EXPO_PUBLIC_API_URL=http://<address>:<port> npx expo start`.
+   - Over USB on Android you can skip Wi-Fi entirely: `adb reverse tcp:4000 tcp:4000` and `adb reverse tcp:8081 tcp:8081`, then `npx expo start --localhost`.
 
 ---
 
-## 4) سعر الطالب (خصم 25%)
+## 3) Your 5% commission and the owner dashboard
 
-1. الطالب في التطبيق: **حسابي ← سعر الطالب**، يكتب اسمه كما في الجواز، تاريخ ميلاده، جامعته، ويصوّر **بطاقة الطالب** و**شهادة التسجيل لهذه السنة**.
-2. الوكالة: **توثيق الطلاب** ← تفتح الصورتين وتتحقق (الاسم، السنة الدراسية، العمر ≤ 30) ← **قبول** (صالح حتى 31 أغسطس افتراضياً) أو **رفض** مع السبب.
-3. عند الحجز يفعّل الطالب **"هذا أنا — سعر الطالب"** على المسافر الذي يحمل اسمه. يتحقق الخادم أن الاسم يطابق الوثائق، والخصم **لتذكرته فقط** (لا لمرافقيه).
-4. ينتهي التوثيق تلقائياً بنهاية السنة الدراسية، ويُطلب من الطالب إعادة الإرسال.
+**How it is calculated:**
+- Commission = **5% of the price shown to the customer** on every booking made through the app (flights, Amadeus, quotes, Umrah & Hajj).
+- Price shown = after the student discount and **before** the points discount (the points discount is paid by the agency and does not reduce your commission).
+- The commission becomes **due** when the ticket is issued, and is **cancelled** automatically if the booking is cancelled or refunded.
+- Changing the rate only applies to new bookings.
 
-النسبة والعمر الأقصى قابلان للتعديل من الإعدادات. سعر الطالب على رحلات الوكالة وAmadeus؛ أما عروض الأسعار والباقات فتُسعَّر يدوياً (ويظهر للوكالة أن الطالب موثّق).
+**In your dashboard (`/owner`):**
+- Amount currently due to you, this month's earnings, all-time total, and earnings per month.
+- Commission per booking, with date filters and CSV export (opens in Excel).
+- **Payments received:** record every amount you receive from the agency; it is deducted from the amount due.
+- **Audit log:** every important change (booking statuses, prices, settings, student verification…) with who did it and when.
+- **Alert:** bookings cancelled or refunded **after payment** are highlighted for you to review. The agency must give a reason and cannot delete any booking.
 
-## 5) النقاط و"ادعُ صديقاً"
+**In the agency dashboard → "Platform dues":** agency staff see the same figures (your commission per booking, amount due, amount paid) **read-only**; they cannot change them or access your dashboard.
 
-- **الكسب:** نقطة لكل 100 أوقية مدفوعة، تُضاف بعد إصدار التذكرة فقط (تُسحب إن استُرجع الحجز).
-- **الاستعمال:** كل نقطة = 2 أوقية خصم، من 100 نقطة فأكثر، حتى 30% من سعر الحجز. **الخصم تتحمله الوكالة.**
-- **الانتهاء:** بعد 12 شهراً بلا نشاط.
-- **ادعُ صديقاً:** لكل زبون رمز دعوة؛ عند أول تذكرة للصديق يربح الداعي 200 نقطة والصديق 200 نقطة.
-- كل الأرقام قابلة للتعديل من **الإعدادات ← الطلاب والنقاط والدعوات**. ويمكن للمدير إضافة نقاط أو خصمها يدوياً من صفحة الزبائن (مع ذكر السبب).
+### How the agency pays you
+1. **You:** Owner dashboard → Settings & security → **Your payout accounts** (Bankily / Masrvi / Sedad / bank account: number and holder name).
+2. **Agency:** their dashboard → **Platform dues** → they see the amount due and your accounts, transfer the money, then fill in the **"Pay platform dues"** form: account used, amount, transaction number, receipt photo.
+3. **You:** a notification appears in your dashboard → **Payments received** → open the receipt and check your account → **Confirm receipt** (you can correct the amount if a different amount arrived) or **Not received** with a reason.
+4. On confirmation the amount is deducted from what is due immediately and is visible to both sides. On rejection the agency sees the reason and resubmits.
 
-## 6) العمرة والحج
+A payment only reduces the amount due after you confirm it. You can also record a cash payment manually.
 
-لوحة الوكالة ← **العمرة والحج** ← باقة جديدة: التواريخ، الفنادق والليالي، ما تشمله الباقة، **السعر للشخص حسب نوع الغرفة** (رباعية/ثلاثية/ثنائية/فردية)، سعر الطفل والرضيع، عدد الأماكن. يمكن كتابة العنوان والوصف بالفرنسية أيضاً.
-الزبون يرى الباقات في الرئيسية، يختار الغرفة وعدد الأشخاص ويحجز ويدفع بنفس الطريقة. بعد التأكيد ترفع الوكالة الوثائق (التذكرة/التأشيرة) من صفحة الحجز.
-
-## 7) حفظ المسافرين
-
-عند الحجز يُحفظ كل مسافر تلقائياً (يمكن إلغاء ذلك). في المرة القادمة يختاره الزبون بضغطة فتُملأ بياناته. يُدار من **حسابي ← المسافرون المحفوظون**.
-
-## 8) اللغات: العربية، الفرنسية، الإنجليزية
-
-الزبون يختار **العربية / Français / English** من شاشة الدخول أو من حسابه. تتغير كل الشاشات واتجاهها (من اليسار لليمين في الفرنسية والإنجليزية)، وكذلك رسائل الخادم والإشعارات.
-- النصوص العربية والفرنسية في `mobile/src/strings.js`، والإنجليزية في `mobile/src/strings_en.js`.
-- إن لم تكتب الوكالة نصاً بالإنجليزية (مثل عنوان باقة)، يظهر النص الفرنسي ثم العربي.
-- أسماء المدن بالفرنسية من صفحة المطارات، واسم الشركة بالفرنسية في نموذج الرحلة، وعناوين الباقات بالفرنسية في نموذج الباقة.
-- اللوحتان (الوكالة والمالك) بالعربية.
-
-### الأسعار بثلاث عملات
-كل سعر في التطبيق يظهر **بالأوقية**، وتحته ما يعادله **بالدولار واليورو** (مثال: `8,400 أوقية` ثم `≈ $211 · €181`).
-- أسعار الصرف تضعها الوكالة من **الإعدادات ← بيانات الوكالة** (كم أوقية = 1 دولار، و1 يورو)، ويظهر تاريخ آخر تحديث. **حدّثوها بانتظام.**
-- الدفع يبقى بالأوقية، والتطبيق ينبّه الزبون أن الدولار واليورو للتوضيح فقط.
+> Important: to protect your earnings, the **server and database must be under your control** (hosted in your name), not the agency's.
 
 ---
 
-## 9) الربط الآلي مع Amadeus (عند حصول الوكالة على الموافقة)
+## 4) Student fare (25% off)
 
-كل ما يخص Amadeus موجود في ملف واحد: `server/src/providers/amadeus.js`.
+1. Student in the app: **My account → Student fare**, enters their name as in their passport, date of birth, university, and photographs their **student card** and **this year's enrolment certificate**.
+2. Agency: **Student verification** → opens both photos and checks them (name, academic year, age ≤ 30) → **Approve** (valid until 31 August by default) or **Reject** with a reason.
+3. When booking, the student turns on **"This is me — student fare"** for the passenger with their name. The server checks that the name matches the documents; the discount applies **to their ticket only** (not to companions).
+4. Verification expires automatically at the end of the academic year and the student is asked to resubmit.
 
-**طريقة العمل بعد التفعيل:**
-1. يبحث الزبون ← تظهر **أسعار Amadeus الحية** بجانب رحلات الوكالة اليدوية.
-2. قبل الحجز يُعاد **التحقق من السعر**؛ إن ارتفع يُطلب من الزبون البحث من جديد.
-3. يُنشأ **الحجز (PNR) آلياً** في Amadeus ويظهر في التطبيق ولوحة الوكالة.
-4. يدفع الزبون، وتؤكد الوكالة الدفع.
-5. تُصدر التذكرة: **آلياً** إن وفّر عقدكم واجهة إصدار، أو يصدرها الموظف من نظام Amadeus كالعادة.
-6. **أرقام التذاكر تُجلب آلياً** كل 10 دقائق (أو بزر "مزامنة الآن")، فتتحول الحالة إلى "تم الإصدار" ويصل إشعار للزبون.
-7. إذا لم يدفع الزبون في المهلة، يُلغى الـPNR آلياً.
+The rate and maximum age can be changed in the settings. The student fare applies to agency flights and Amadeus; quotes and packages are priced manually (the agency can see that the student is verified).
 
-**التفعيل:** لوحة الوكالة ← الإعدادات ← **الربط مع Amadeus**:
-- **البيئة:** `test` للتجربة، ثم `production`. وإن أعطاكم Amadeus عنواناً خاصاً اختر "عنوان مخصص".
-- **Client ID / Client Secret:** من Amadeus. السرّ يُحفظ في الخادم فقط ولا يظهر بعد الحفظ.
-- **العملة وسعر الصرف:** إن كانت أسعار Amadeus باليورو مثلاً، ضع سعر صرف اليورو إلى الأوقية.
-- **هامش ربح الوكالة:** نسبة مئوية و/أو مبلغ ثابت لكل مسافر يُضاف على سعر Amadeus.
-- **مسار الإصدار الآلي:** اتركه فارغاً إلا إذا أعطاكم Amadeus واجهة إصدار.
-- اضغط **اختبار الاتصال**، ثم فعّل **"تفعيل Amadeus للزبائن"**.
+## 5) Points and "Invite a friend"
 
-> ملاحظة: الربط مبني على واجهات Amadeus بصيغة REST/JSON (Flight Offers Search / Pricing / Flight Orders). إن كان عقد الوكالة بصيغة أخرى (مثل واجهات SOAP القديمة)، يُعدَّل ملف `amadeus.js` فقط دون المساس ببقية التطبيق. الإصدار الآلي للتذاكر يحتاج أن تكون الوكالة مخوّلة بالإصدار (IATA أو عبر موزّع).
+- **Earning:** 1 point per 100 MRU paid, credited only after the ticket is issued (removed if the booking is refunded).
+- **Spending:** each point = 2 MRU off, from 100 points upwards, up to 30% of the booking price. **The discount is paid by the agency.**
+- **Expiry:** after 12 months without activity.
+- **Invite a friend:** every customer has an invite code; on the friend's first ticket, both the inviter and the friend earn 200 points.
+- All values are configurable in **Settings → Students, points & invites**. The admin can also add or remove points manually from the Customers page (with a reason).
+
+## 6) Umrah & Hajj
+
+Agency dashboard → **Umrah & Hajj** → New package: dates, hotels and nights, what is included, **price per person by room type** (quad/triple/double/single), child and infant prices, number of seats. The title and description can also be written in French.
+Customers see the packages on the home screen, choose the room and number of people, then book and pay the same way. After confirmation the agency uploads the documents (ticket/visa) from the booking page.
+
+## 7) Saved travellers
+
+When booking, each passenger is saved automatically (this can be turned off). Next time the customer picks them with one tap and their details are filled in. Managed from **My account → Saved travellers**.
+
+## 8) Languages: Arabic, French, English
+
+Customers choose **العربية / Français / English** on the sign-in screen or in their account. All screens and their direction change (left-to-right in French and English), as do server messages and notifications.
+- Arabic and French strings are in `mobile/src/strings.js`, English in `mobile/src/strings_en.js`.
+- If the agency has not written an English text (such as a package title), the French text is shown, then the Arabic.
+- French city names come from the Airports page, the French airline name from the flight form, and French package titles from the package form.
+- Both dashboards (agency and owner) are in Arabic.
+
+### Prices in three currencies
+Every price in the app is shown **in ouguiya (MRU)**, with the **US dollar and euro** equivalent below it (e.g. `8,400 MRU` then `≈ $211 · €181`).
+- Exchange rates are set by the agency in **Settings → Agency details** (how many MRU = 1 USD and 1 EUR), with the date of the last update. **Keep them up to date.**
+- Payment is always in MRU; the app tells the customer that USD and EUR are for information only.
+
+---
+
+## 9) Automatic Amadeus integration (once the agency is approved)
+
+Everything Amadeus-related lives in one file: `server/src/providers/amadeus.js`.
+
+**How it works once enabled:**
+1. The customer searches → **live Amadeus fares** appear alongside the agency's manual flights.
+2. Before booking the **price is re-checked**; if it went up, the customer is asked to search again.
+3. The **booking (PNR) is created automatically** in Amadeus and appears in the app and the agency dashboard.
+4. The customer pays and the agency confirms the payment.
+5. The ticket is issued **automatically** if your contract provides an issuing API, otherwise staff issue it from the Amadeus system as usual.
+6. **Ticket numbers are fetched automatically** every 10 minutes (or with the "Sync now" button); the status changes to "Ticketed" and the customer is notified.
+7. If the customer does not pay in time, the PNR is cancelled automatically.
+
+**Enabling it:** Agency dashboard → Settings → **Amadeus integration**:
+- **Environment:** `test` for trials, then `production`. If Amadeus gave you a specific URL, choose "Custom URL".
+- **Client ID / Client Secret:** from Amadeus. The secret is stored on the server only and is not shown again after saving.
+- **Currency and exchange rate:** if Amadeus prices are in euros, for example, set the EUR→MRU rate.
+- **Agency margin:** a percentage and/or a fixed amount per passenger added on top of the Amadeus price.
+- **Automatic issuing endpoint:** leave empty unless Amadeus gave you an issuing API.
+- Click **Test connection**, then turn on **"Enable Amadeus for customers"**.
+
+> Note: the integration is built on Amadeus REST/JSON APIs (Flight Offers Search / Pricing / Flight Orders). If the agency's contract uses another format (such as the older SOAP APIs), only `amadeus.js` needs to change. Automatic ticketing requires the agency to be authorised to issue tickets (IATA or through a consolidator).
 >
-> لحجوزات Amadeus يطلب التطبيق من الزبون **الجنس وتاريخ الميلاد** لكل مسافر، لأن شركات الطيران تشترطهما.
+> For Amadeus bookings the app asks for each passenger's **gender and date of birth**, because airlines require them.
 
 ---
 
-## 10) هيكل المشروع
+## 10) Project structure
 
 ```
 travel-app/
 ├── server/
 │   ├── src/
-│   │   ├── index.js            تشغيل الخادم
-│   │   ├── db.js · migrate.js  قاعدة البيانات + الترقية التلقائية
-│   │   ├── services.js         الأسعار، خصم الطالب، النقاط، العمولة، الحجوزات
-│   │   ├── commission.js       حساب أرباح المالك
-│   │   ├── providers/amadeus.js  الربط مع Amadeus
-│   │   ├── totp.js             التحقق الثنائي للمالك
-│   │   ├── i18n.js             ترجمة رسائل الخادم للفرنسية
-│   │   └── routes/  api.js (التطبيق) · admin.js (الوكالة) · owner.js (المالك)
-│   ├── public/admin/           لوحة الوكالة
-│   ├── public/owner/           لوحة المالك
-│   └── data/                   قاعدة البيانات والملفات (تُنشأ تلقائياً — انسخها احتياطياً)
-└── mobile/
-    ├── App.js
-    └── src/
-        ├── strings.js          كل نصوص التطبيق (عربي + فرنسي)
-        ├── theme.js            الألوان واتجاه الواجهة
-        ├── config.js           عنوان الخادم
-        └── screens/            الشاشات
+│   │   ├── index.js            server entry point
+│   │   ├── db.js · migrate.js  database + automatic migration
+│   │   ├── services.js         pricing, student discount, points, commission, bookings
+│   │   ├── commission.js       owner earnings calculation
+│   │   ├── providers/amadeus.js  Amadeus integration
+│   │   ├── totp.js             owner two-factor authentication
+│   │   ├── i18n.js             server message translation (French / English)
+│   │   └── routes/  api.js (app) · admin.js (agency) · owner.js (owner)
+│   ├── public/admin/           agency dashboard
+│   ├── public/owner/           owner dashboard
+│   └── data/                   database and files (created automatically — back it up)
+├── mobile/
+│   ├── App.js
+│   └── src/
+│       ├── strings.js          app strings (Arabic + French)
+│       ├── strings_en.js       app strings (English)
+│       ├── theme.js            colours and layout direction
+│       ├── config.js           server address
+│       └── screens/            screens
+└── docs/screenshots/           README screenshots
 ```
 
-## 11) قبل الإطلاق الحقيقي
+## 11) Before going live
 
-1. استضافة الخادم **باسمك** (VPS) مع نطاق و**HTTPS**، وتشغيله بـ `pm2`، ونسخ احتياطي يومي لمجلد `server/data`.
-2. ضع العنوان في `mobile/src/config.js`، وغيّر اسم التطبيق و`com.youragency.travel` في `mobile/app.json`.
-3. ابنِ التطبيق للمتاجر: `npm i -g eas-cli` ثم `eas build --platform android`.
-4. احذف الرحلات والباقات التجريبية، وأدخل أرقام حسابات الدفع الحقيقية، وغيّر كل كلمات المرور.
-5. عقد مكتوب مع الوكالة يحدد العمولة وطريقة سدادها ومواعيده.
+1. Host the server **in your name** (VPS) with a domain and **HTTPS**, run it with `pm2`, and back up the `server/data` folder daily.
+2. Put the address in `mobile/src/config.js`, and change the app name and `com.youragency.travel` in `mobile/app.json`.
+3. Build the app for the stores: `npm i -g eas-cli` then `eas build --platform android`.
+4. Delete the demo flights and packages, enter the real payment account numbers, and change every password.
+5. A written contract with the agency setting out the commission and how and when it is paid.
 
-### اقتراحات لاحقة
-- نقل قاعدة البيانات إلى **PostgreSQL** عندما يكبر عدد الحجوزات (البيانات المالية أكثر أماناً فيها).
-- **رمز تحقق SMS** عند التسجيل لمنع الحسابات الوهمية (مهم مع النقاط والدعوات).
-- **إشعارات فورية (Push)** تصل والتطبيق مغلق.
-- رموز خصم موسمية.
+### Future ideas
+- Move the database to **PostgreSQL** as bookings grow (safer for financial data).
+- **SMS verification** at sign-up to prevent fake accounts (important with points and invites).
+- **Push notifications** that arrive while the app is closed.
+- Seasonal discount codes.
