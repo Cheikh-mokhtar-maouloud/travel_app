@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "حجز التذاكر",
+    "slug": "travel-agency-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F4F1EA",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.youragency.travel",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "لإرفاق صورة إيصال الدفع",
+        "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true }
+      }
+    },
+    "android": {
+      "package": "com.youragency.travel",
+      "backgroundColor": "#F4F1EA",
+      "usesCleartextTraffic": true
+    },
+    "extra": {
+      "supportsRTL": true
+    },
+    "plugins": [
+      "expo-status-bar",
+      [
+        "expo-image-picker",
+        { "photosPermission": "لإرفاق صورة إيصال الدفع" }
+      ]
+    ]
+  }
+}
